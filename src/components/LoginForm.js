@@ -1,36 +1,16 @@
 import React, { Component } from 'react';
 import { TextInput, Alert } from 'react-native';
-import firebase from 'firebase';
 import { connect } from 'react-redux';
 
 import { Button, Card, CardSection, Spinner } from '../ortak';
-import { emailChanged, passwordChanged } from '../actions';
+import { emailChanged, passwordChanged, loginUser } from '../actions';
 
 class LoginForm extends Component {
   state ={ email: '', password: '', loading: false }
 
   clickLogin() {
-    this.setState({ loading: true });
-    const { email, password } = this.state;
-
-    if (email === '' || password === '') {
-      this.setState({ loading: false });
-      Alert.alert(
-        'Mesaj',
-        'Her iki alan da dolu olamalıdır.',
-        [
-          { text: 'tamam', onpress: () => null }
-        ]
-      );
-    } else {
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(this.loginSucces.bind(this))
-        .catch(() => {
-          firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(this.loginSucces.bind(this))
-          .catch(this.loginFail.bind(this));
-        });
-    }
+    const { email, password } = this.props;
+    this.props.loginUser({ email, password });
     }
 
 
@@ -52,15 +32,15 @@ class LoginForm extends Component {
   }
 
   renderButton() {
-    if (!this.state.loading) {
+    if (!this.props.loading) {
       return <Button onPress={this.clickLogin.bind(this)}> Giriş Yap </Button>;
     }
     return <Spinner size="small" />;
   }
 
   render() {
-    console.log('response-email' + this.props.email);
-    console.log('response-password' + this.props.password);
+    console.log('response-email' + ' ' + this.props.email);
+    console.log('response-password' + ' ' +  this.props.password);
     const { inputStyle } = styles;
     return (
       <Card>
@@ -103,11 +83,12 @@ const styles = {
   }
 };
 const mapStateToProps = ({ kimlikdogrulamaResponse }) => {
-  const { email, password } = kimlikdogrulamaResponse;
+  const { email, password, loading } = kimlikdogrulamaResponse;
   return {
     email,
-    password
+    password,
+    loading
   };
 };
 
-export default connect(mapStateToProps, { emailChanged, passwordChanged })(LoginForm);
+export default connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginForm);
