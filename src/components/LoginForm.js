@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, Alert } from 'react-native';
+import { TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button, Card, CardSection, Spinner } from '../ortak';
@@ -13,24 +13,6 @@ class LoginForm extends Component {
     this.props.loginUser({ email, password });
     }
 
-
-  loginSucces() {
-    console.log('başarılı');
-    this.setState({ loading: false });
-  }
-
-  loginFail() {
-    console.log('başarısız');
-    this.setState({ loading: false });
-    Alert.alert(
-      'Mesaj',
-      'Kullanıcı adı veya şifreniz hatalı.',
-      [
-        { text: 'tamam', onpress: () => null }
-      ]
-    );
-  }
-
   renderButton() {
     if (!this.props.loading) {
       return <Button onPress={this.clickLogin.bind(this)}> Giriş Yap </Button>;
@@ -43,6 +25,7 @@ class LoginForm extends Component {
     console.log('response-password' + ' ' +  this.props.password);
     const { inputStyle } = styles;
     return (
+      <View style={{ flex: 1, backgroundColor: 'white' }} >
       <Card>
         <CardSection>
           <TextInput
@@ -68,6 +51,7 @@ class LoginForm extends Component {
         </CardSection>
 
       </Card>
+      </View>
     );
   }
 }

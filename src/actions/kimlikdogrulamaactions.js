@@ -1,4 +1,5 @@
 import { Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 import { EMAIL_CHANGED,
          PASSWORD_CHANGED,
@@ -35,6 +36,9 @@ export const loginUser = ({ email, password }) => {
           { text: 'tamam', onpress: () => null }
         ]
       );
+      dispatch({
+        type: LOGIN_FAIL,
+      });
     } else {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then(user => loginSucces(dispatch, user))
@@ -52,6 +56,8 @@ const loginSucces = (dispatch, user) => {
     type: LOGIN_USER_SUCCES,
     payload: user
   });
+
+  Actions.main();
 };
 
 const loginFail = (dispatch) => {
