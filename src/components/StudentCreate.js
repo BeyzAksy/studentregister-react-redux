@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Text, TextInput, View, Picker } from 'react-native';
+import { connect } from 'react-redux';
+
 import { CardSection, Button } from '../ortak';
+import { studentChange } from '../actions'
 
 class StudentCreate extends Component {
   clickSave() {
@@ -15,7 +18,7 @@ class StudentCreate extends Component {
             placeholder="İsim"
             style={inputStyle}
             value={this.props.isim}
-            onChangeText={isim => this.props.stdNameChanged(isim)}
+            onChangeText={isim => this.props.studentChange({ props: 'isim', value: isim })}
           />
         </CardSection>
         <CardSection>
@@ -23,7 +26,7 @@ class StudentCreate extends Component {
             placeholder="Soyisim"
             style={inputStyle}
             value={this.props.soyisim}
-            onChangeText={soyisim => this.props.studentChange(soyisim)}
+            onChangeText={soyisim => this.props.studentChange({ props: 'soyisim', value: soyisim })}
           />
         </CardSection>
 
@@ -32,7 +35,7 @@ class StudentCreate extends Component {
             placeholder="Öğrenci Numarsı"
             style={inputStyle}
             value={this.props.ogrno}
-            onChangeText={ogrno => this.props.studentChange(ogrno)}
+            onChangeText={ogrno => this.props.studentChange({ props: 'ogrno', value: ogrno })}
           />
         </CardSection>
 
@@ -41,7 +44,7 @@ class StudentCreate extends Component {
           <Picker
             style={{ flex: 1 }}
             selectedValue={this.props.sube}
-            onValueChange={sube => this.props.studentChange(sube)}
+            onValueChange={sube => this.props.studentChange({ props: 'sube', value: sube })}
           >
             <Picker.Item label="A şubesi" value="asube" />
             <Picker.Item label="B şubesi" value="bsube" />
@@ -66,4 +69,15 @@ const styles = {
     flex: 2
   }
 };
-export default StudentCreate;
+const mapToStateProps = ({ studentsListResponse }) => {
+  const { isim,
+    soyisim,
+    ogrno,
+    sube
+  } = studentsListResponse;
+  return { isim,
+    soyisim,
+    ogrno,
+    sube };
+};
+export default connect(mapToStateProps, { studentChange })(StudentCreate);
