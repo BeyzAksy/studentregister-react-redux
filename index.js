@@ -4,12 +4,12 @@ import firebase from 'firebase';
 import App from './App';
 
 const config = {
-  apiKey: 'AIzaSyCDkfRZuX2RSSp8Tu_HAamVYQlNijjvpQI',
-  authDomain: 'studentregister-f71d6.firebaseapp.com',
-  databaseURL: 'https://studentregister-f71d6.firebaseio.com',
-  projectId: 'studentregister-f71d6',
-  storageBucket: 'studentregister-f71d6.appspot.com',
-  messagingSenderId: '259601292796'
+  apiKey: 'AIzaSyCQ8SQJRevFl04raPgRZfiCSecCtt6y0D0',
+  authDomain: 'studentregister-4203f.firebaseapp.com',
+  databaseURL: 'https://studentregister-4203f.firebaseio.com',
+  projectId: 'studentregister-4203f',
+  storageBucket: '',
+  messagingSenderId: '601674317381'
 };
 firebase.initializeApp(config);
 

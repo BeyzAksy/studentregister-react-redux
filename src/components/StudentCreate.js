@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Picker } from 'react-native';
+import { Text, TextInput, Picker } from 'react-native';
 import { connect } from 'react-redux';
 
-import { CardSection, Button } from '../ortak';
-import { studentChange } from '../actions'
+import { Card, CardSection, Button, Spinner } from '../ortak';
+import { studentChange, studentCreate } from '../actions'
 
 class StudentCreate extends Component {
   clickSave() {
-
+    const { isim,
+      soyisim,
+      ogrno,
+      sube
+    } = this.props;
+    this.props.studentCreate({ isim, soyisim, ogrno, sube });
   }
+  renderButton() {
+    if (!this.props.loading) {
+      return <Button onPress={this.clickSave.bind(this)}> Kaydet </Button>;
+    }
+    return <Spinner size="small" />;
+  }
+
   render() {
     const { inputStyle } = styles;
     return (
-      <View>
+      <Card>
         <CardSection>
           <TextInput
             placeholder="İsim"
@@ -53,9 +65,9 @@ class StudentCreate extends Component {
         </CardSection>
 
         <CardSection>
-          <Button onPress={this.clickSave.bind(this)}> Giriş Yap </Button>
+          {this.renderButton()}
         </CardSection>
-      </View>
+      </Card>
     );
   }
 }
@@ -73,11 +85,13 @@ const mapToStateProps = ({ studentsListResponse }) => {
   const { isim,
     soyisim,
     ogrno,
-    sube
+    sube,
+    loading
   } = studentsListResponse;
   return { isim,
     soyisim,
     ogrno,
-    sube };
+    sube,
+    loading };
 };
-export default connect(mapToStateProps, { studentChange })(StudentCreate);
+export default connect(mapToStateProps, { studentChange, studentCreate })(StudentCreate);

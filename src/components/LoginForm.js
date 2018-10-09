@@ -69,8 +69,8 @@ const styles = {
 const mapStateToProps = ({ kimlikdogrulamaResponse }) => {
   const { email, password, loading } = kimlikdogrulamaResponse;
   return {
-    email,
-    password,
+    email: 'test@test.com',
+    password: '123456',
     loading
   };
 };
