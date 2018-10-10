@@ -4,7 +4,7 @@ import firebase from 'firebase';
 import { EMAIL_CHANGED,
          PASSWORD_CHANGED,
          LOGIN_USER,
-         LOGIN_USER_SUCCES,
+         LOGIN_USER_SUCCESS,
          LOGIN_FAIL } from './types';
 
 export const emailChanged = (email) => {
@@ -53,7 +53,7 @@ export const loginUser = ({ email, password }) => {
 
 const loginSucces = (dispatch, user) => {
   dispatch({
-    type: LOGIN_USER_SUCCES,
+    type: LOGIN_USER_SUCCESS,
     payload: user
   });
   Actions.main();
