@@ -7,7 +7,7 @@ import { CardSection } from '../ortak';
 class ListItem extends Component {
 
   ogrenciClick() {
-    Actions.studentCreate({ student: this.props.ogrenci });
+    Actions.studentUpdate({ student: this.props.ogrenci });
   }
 
   render() {
