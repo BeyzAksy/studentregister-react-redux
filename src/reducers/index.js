@@ -8,5 +8,5 @@ export default combineReducers({
   kimlikdogrulamaResponse: kimlikdogrulamaReducer,
   studentsListResponse: StudentsListReducer,
   studentDataResponse: StudentDataReducer,
-  studentupdateResponse: StudentUpdateReducer,
+  studentUpdateResponse: StudentUpdateReducer,
 });

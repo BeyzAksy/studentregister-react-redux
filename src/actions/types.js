@@ -14,3 +14,6 @@ export const STUDENT_LIST_DATA_SUCCES = 'student_list_data_success';
 
 export const UPDATE_REQUEST = 'update_success';
 export const UPDATE_REQUEST_SUCCESS = 'update_request_success';
+
+export const DELETE_REQUEST = 'delete_success';
+export const DELETE_REQUEST_SUCCESS = 'delete_request_success';

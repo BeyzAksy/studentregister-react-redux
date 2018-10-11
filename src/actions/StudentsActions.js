@@ -5,7 +5,9 @@ import { STUDENT_CHANGED,
          CREATE_REQUEST,
          STUDENT_LIST_DATA_SUCCES,
          UPDATE_REQUEST,
-         UPDATE_REQUEST_SUCCESS } from './types';
+         UPDATE_REQUEST_SUCCESS,
+         DELETE_REQUEST,
+         DELETE_REQUEST_SUCCESS } from './types';
 
  export const studentChange = ({ props, value }) => {
    return (dispatch) => {
@@ -50,6 +52,20 @@ import { STUDENT_CHANGED,
         .set({ isim, soyisim, ogrno, sube })
           .then(() => {
             dispatch({ type: UPDATE_REQUEST_SUCCESS });
+            Actions.pop();
+          });
+    };
+ };
+
+ export const studentDelete = ({ uid }) => {
+   const { currentUser } = firebase.auth();
+
+    return (dispatch) => {
+      dispatch({ type: DELETE_REQUEST });
+      firebase.database().ref(`/kullanicilar/${currentUser.uid}/ogrenciler/${uid}`)
+        .remove()
+          .then(() => {
+            dispatch({ type: DELETE_REQUEST_SUCCESS });
             Actions.pop();
           });
     };

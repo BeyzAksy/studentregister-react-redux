@@ -3,7 +3,7 @@ import { Text, TextInput, Picker } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Card, CardSection, Button, Spinner } from '../ortak';
-import { studentUpdate } from '../actions';
+import { studentUpdate, studentDelete } from '../actions';
 
 class StudentUpdate extends Component {
   state = { isim: '', soyisim: '', ogrno: '', sube: '' };
@@ -27,7 +27,7 @@ class StudentUpdate extends Component {
   }
 
   clickDelete() {
-
+    this.props.studentDelete({ uid: this.props.student.uid });
   }
 
   renderButton() {
@@ -108,8 +108,8 @@ const styles = {
     flex: 2
   }
 };
-const mapToStateProps = ({ studentupdateResponse }) => {
-  const { loadingUpdate } = studentupdateResponse;
-  return { loadingUpdate };
+const mapToStateProps = ({ studentUpdateResponse }) => {
+  const { loadingUpdate, loadingDelete } = studentUpdateResponse;
+  return { loadingUpdate, loadingDelete };
 };
-export default connect(mapToStateProps, { studentUpdate })(StudentUpdate);
+export default connect(mapToStateProps, { studentUpdate, studentDelete })(StudentUpdate);
