@@ -3,7 +3,7 @@ import { Text, TextInput, Picker } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Card, CardSection, Button, Spinner } from '../ortak';
-import { studentChange, studentCreate } from '../actions'
+import { studentUpdate } from '../actions';
 
 class StudentUpdate extends Component {
   state = { isim: '', soyisim: '', ogrno: '', sube: '' };
@@ -23,20 +23,21 @@ class StudentUpdate extends Component {
       sube
     } = this.state;
 
-    this.props.studentCreate({ isim, soyisim, ogrno, sube });
+    this.props.studentUpdate({ isim, soyisim, ogrno, sube, uid: this.props.student.uid });
   }
 
   clickDelete() {
 
   }
+
   renderButton() {
-    if (!this.props.loading) {
+    if (!this.props.loadingUpdate) {
       return <Button onPress={this.clickUpdate.bind(this)}> Güncelle </Button>;
     }
     return <Spinner size="small" />;
   }
   renderDeleteButton() {
-    if (!this.props.loading) {
+    if (!this.props.loadingDelete) {
       return <Button onPress={this.clickDelete.bind(this)}> Sil </Button>;
     }
     return <Spinner size="small" />;
@@ -107,8 +108,8 @@ const styles = {
     flex: 2
   }
 };
-const mapToStateProps = ({ studentsListResponse }) => {
-  const { loading } = studentsListResponse;
-  return { loading };
+const mapToStateProps = ({ studentupdateResponse }) => {
+  const { loadingUpdate } = studentupdateResponse;
+  return { loadingUpdate };
 };
-export default connect(mapToStateProps, { studentChange, studentCreate })(StudentUpdate);
+export default connect(mapToStateProps, { studentUpdate })(StudentUpdate);

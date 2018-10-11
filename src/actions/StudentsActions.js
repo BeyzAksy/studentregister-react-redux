@@ -3,7 +3,9 @@ import firebase from 'firebase';
 import { STUDENT_CHANGED,
          CREATE_REQUEST_SUCCESS,
          CREATE_REQUEST,
-         STUDENT_LIST_DATA_SUCCES } from './types';
+         STUDENT_LIST_DATA_SUCCES,
+         UPDATE_REQUEST,
+         UPDATE_REQUEST_SUCCESS } from './types';
 
  export const studentChange = ({ props, value }) => {
    return (dispatch) => {
@@ -37,4 +39,18 @@ import { STUDENT_CHANGED,
         dispatch({ type: STUDENT_LIST_DATA_SUCCES, payload: snapshot.val() })
       });
    };
+ };
+
+ export const studentUpdate = ({ isim, soyisim, ogrno, sube, uid }) => {
+   const { currentUser } = firebase.auth();
+
+    return (dispatch) => {
+      dispatch({ type: UPDATE_REQUEST });
+      firebase.database().ref(`/kullanicilar/${currentUser.uid}/ogrenciler/${uid}`)
+        .set({ isim, soyisim, ogrno, sube })
+          .then(() => {
+            dispatch({ type: UPDATE_REQUEST_SUCCESS });
+            Actions.pop();
+          });
+    };
  };
