@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import { CardSection } from '../ortak';
 
 class ListItem extends Component {
+
+  ogrenciClick() {
+    Actions.studentCreate({ student: this.props.ogrenci });
+  }
+
   render() {
     const { isim, soyisim } = this.props.ogrenci;
     return (
+      <TouchableWithoutFeedback onPress={this.ogrenciClick.bind(this)}>
       <View>
         <CardSection>
           <Text>
@@ -14,6 +21,7 @@ class ListItem extends Component {
           </Text>
         </CardSection>
       </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

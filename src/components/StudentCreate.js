@@ -22,6 +22,7 @@ class StudentCreate extends Component {
   }
 
   render() {
+    console.log('gelen data' + this.props.student.isim);
     const { inputStyle } = styles;
     return (
       <Card>
